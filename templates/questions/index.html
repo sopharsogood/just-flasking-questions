@@ -13,5 +13,12 @@
         <th>Asker</th>
         <th>Date</th>
     </tr>
+    {% for question in questions %}
+        <tr>
+            <td>{{ question['title'] }}</td>
+            <td>{{ question.user.username }}</td>
+            <td>{{ question.date_created }}</td>
+        </tr>
+    {% endfor %}
 </table>
 {% endblock %}

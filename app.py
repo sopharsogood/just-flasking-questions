@@ -41,7 +41,7 @@ class Answer(db.Model):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('questions/index.html')
 
 if __name__ == "__main__":
     app.run(debug=True)

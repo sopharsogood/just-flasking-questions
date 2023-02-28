@@ -15,7 +15,7 @@ class User(db.Model):
     date_created = db.Column(db.DateTime)
 
     def __repr__(self) -> str:
-        return '<User %>' % self.username
+        return '<User %r>' % self.username
 
 class Question(db.Model):
     __tablename__ = 'questions'
@@ -26,7 +26,7 @@ class Question(db.Model):
     date_created = db.Column(db.DateTime)
 
     def __repr__(self):
-        return '<User %>' % self.title
+        return '<Question %r>' % self.title
 
 class Answer(db.Model):
     __tablename__ = 'answers'
@@ -36,7 +36,7 @@ class Answer(db.Model):
     date_created = db.Column(db.DateTime)
 
     def __repr__(self):
-        return '<User %>' % self.content
+        return '<Answer %r>' % self.content
 
 
 @app.route('/')

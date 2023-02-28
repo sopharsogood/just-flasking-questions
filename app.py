@@ -12,6 +12,21 @@ class User(db.Model):
     name = db.Column(db.String, unique = True)
     date_created = db.Column(db.DateTime)
 
+class Question(db.Model):
+    __tablename__ = 'questions'
+    id = db.Column(db.Integer, primary_key = True)
+    author_id = db.Column(db.Integer)
+    title = db.Column(db.String)
+    content = db.Column(db.String)
+    date_created = db.Column(db.DateTime)
+
+class Answer(db.Model):
+    __tablename__ = 'answers'
+    id = db.Column(db.Integer, primary_key = True)
+    author_id = db.Column(db.Integer)
+    title = db.Column(db.String)
+    content = db.Column(db.String)
+    date_created = db.Column(db.DateTime)
 
 
 @app.route('/')

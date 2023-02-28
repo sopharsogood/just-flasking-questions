@@ -7,4 +7,4 @@ def index():
     return "This is a placeholder for the site's index"
 
 if __name__ == "__main__":
-    app.run(debug=true)
+    app.run(debug=True)

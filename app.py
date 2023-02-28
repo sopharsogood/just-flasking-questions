@@ -41,7 +41,8 @@ class Answer(db.Model):
 
 @app.route('/')
 def index():
-    return render_template('questions/index.html')
+    questions = Question.query.order_by(Question.date_created).all()
+    return render_template('questions/index.html', questions = questions)
 
 if __name__ == "__main__":
     app.run(debug=True)

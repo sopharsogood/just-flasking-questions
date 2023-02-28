@@ -12,7 +12,8 @@ class User(db.Model):
     username = db.Column(db.String, unique = True)
     questions = db.relationship('Question', backref = 'user')
     answers = db.relationship('Answer', backref = 'user')
-    date_created = db.Column(db.DateTime)
+    created_on = db.Column(db.DateTime, server_default=db.func.now())
+    updated_on = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
 
     def __repr__(self) -> str:
         return '<User %r>' % self.username
@@ -23,7 +24,8 @@ class Question(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     title = db.Column(db.String)
     content = db.Column(db.String)
-    date_created = db.Column(db.DateTime)
+    created_on = db.Column(db.DateTime, server_default=db.func.now())
+    updated_on = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
 
     def __repr__(self):
         return '<Question %r>' % self.title
@@ -33,7 +35,8 @@ class Answer(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     content = db.Column(db.String)
-    date_created = db.Column(db.DateTime)
+    created_on = db.Column(db.DateTime, server_default=db.func.now())
+    updated_on = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
 
     def __repr__(self):
         return '<Answer %r>' % self.content

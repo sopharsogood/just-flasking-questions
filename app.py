@@ -10,12 +10,14 @@ class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String, unique = True)
+    questions = db.relationship('Question', backref = 'user')
+    answers = db.relationship('Answer', backref = 'user')
     date_created = db.Column(db.DateTime)
 
 class Question(db.Model):
     __tablename__ = 'questions'
     id = db.Column(db.Integer, primary_key = True)
-    author_id = db.Column(db.Integer)
+    author_id = db.Column(db.Integer, db.ForeignKey(users.id))
     title = db.Column(db.String)
     content = db.Column(db.String)
     date_created = db.Column(db.DateTime)
@@ -23,7 +25,7 @@ class Question(db.Model):
 class Answer(db.Model):
     __tablename__ = 'answers'
     id = db.Column(db.Integer, primary_key = True)
-    author_id = db.Column(db.Integer)
+    author_id = db.Column(db.Integer, db.ForeignKey(users.id))
     title = db.Column(db.String)
     content = db.Column(db.String)
     date_created = db.Column(db.DateTime)

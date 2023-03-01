@@ -81,7 +81,22 @@ def login():
 
 @app.route('/register')
 def register():
-    return render_template('users/register.html')
+    if request.method == "POST":
+        chosen_username = request.form['username']
+        chosen_password = request.form['password']
+        chosen_password_hash = bcrypt.generate_password_hash(chosen_password)
+        new_user = User(username=chosen_username, password=chosen_password_hash)
+        try:
+            db.session.add(new_user)
+            db.session.commit()
+            return redirect('/')
+        except:
+            return "Account registration failed. Sorry!"
+
+    else:
+        return render_template('users/register.html')
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)

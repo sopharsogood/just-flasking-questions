@@ -85,7 +85,7 @@ def login():
     else:
         return render_template('users/login.html')
 
-@app.route('/register')
+@app.route('/register', methods=['GET','POST'])
 def register():
     if request.method == "POST":
         chosen_username = request.form['username']
@@ -95,6 +95,7 @@ def register():
         try:
             db.session.add(new_user)
             db.session.commit()
+            session['username'] = new_user.username
             return redirect('/')
         except:
             return "Account registration failed. Sorry!"

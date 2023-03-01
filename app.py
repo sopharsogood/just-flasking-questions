@@ -123,7 +123,8 @@ def logout():
 @app.route('/questions/<int:question_id>')
 def questions(question_id):
     question = Question.query.get(question_id)
-    return render_template('questions/show.html', question = question)
+    answers = question.answers
+    return render_template('questions/show.html', question = question, answers = answers)
 
 
 if __name__ == "__main__":

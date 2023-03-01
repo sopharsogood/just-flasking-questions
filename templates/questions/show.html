@@ -5,4 +5,19 @@
 {% block body %}
 <h3>{{ question.title }}</h3>
 <div>{{ question.content }}</div>
+
+<table>
+    <tr>
+        <th>User</th>
+        <th>Answer</th>
+        <th>Date</th>
+    </tr>
+    {% for answer in answers %}
+        <tr>
+            <td>{{ answer.user.username }}</td>
+            <td>{{ answer.content }}</td>
+            <td>{{ answer.created_on }}</td>
+        </tr>
+    {% endfor %}
+</table>
 {% endblock %}

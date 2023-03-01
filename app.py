@@ -57,9 +57,10 @@ class Answer(db.Model):
 def index():
     if request.method == "POST":
         question_title = request.form['title']
+        question_content = request.form['content']
         try:
             current_user_id = User.current_user(session).id
-            new_question = Question(title=question_title, user_id=current_user_id)
+            new_question = Question(title=question_title, content=question_content, user_id=current_user_id)
             db.session.add(new_question)
             db.session.commit()
             return redirect('/')

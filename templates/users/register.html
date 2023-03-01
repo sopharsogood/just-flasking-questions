@@ -5,11 +5,9 @@
 {% endblock %}
 
 {% block content %}
-    <form method="post">
-        <label for="username">Username</label>
-        <input name="username" id="username" required>
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" required>
-        <input type="submit" value="Register">
-    </form>
+<form action="/register" method="POST">
+    Username: <input type="text" name="username" id="username"> <br>
+    Password: <input type="text" name="password" id="password"> <br>
+    <input type="submit" value="Register">
+</form>
 {% endblock %}

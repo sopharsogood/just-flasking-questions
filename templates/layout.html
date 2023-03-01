@@ -7,7 +7,7 @@
     {% if username in session %}
         Logged in as {{ session['username'] }} | Log Out
     {% else %}
-        Log In | Register
+        <a href={{url_for('login')}}>Log In</a> | <a href={{url_for('register')}}>Register</a>
     {% endif %}
     <br>
     {% block head %} {% endblock %}

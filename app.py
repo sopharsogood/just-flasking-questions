@@ -47,7 +47,7 @@ class Answer(db.Model):
 def index():
     if request.method == "POST":
         question_title = request.form['title']
-        new_question = Question(title=question_title)
+        new_question = Question(title=question_title, user_id=session[user_id])
         try:
             db.session.add(new_question)
             db.session.commit()
@@ -63,9 +63,13 @@ def index():
 def new_question():
     return render_template('questions/new.html')
 
-@app.route('/login')
+@app.route('/login', methods=['GET','POST'])
 def login():
-    return render_template('users/login.html')
+    if request.method =="POST":
+
+
+    else:
+        return render_template('users/login.html')
 
 @app.route('/register')
 def register():

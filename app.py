@@ -6,6 +6,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///development.db'
 bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)
+app.secret_key = 'THIS_KEY_FOR_DEVELOPMENT_USE_ONLY'
 
 class User(db.Model):
     __tablename__ = 'users'

@@ -25,6 +25,10 @@ class User(db.Model):
     def find_by_username(self, username):
         return User.query.filter_by(username=username).first()
 
+    @classmethod
+    def current_user(self, session):
+        return User.find_by_username(session['username'])
+
 class Question(db.Model):
     __tablename__ = 'questions'
     id = db.Column(db.Integer, primary_key = True)
@@ -53,17 +57,14 @@ class Answer(db.Model):
 def index():
     if request.method == "POST":
         question_title = request.form['title']
-        if 'username' in session:
-            new_question = Question(title=question_title, user_id=session['user_id'])
-            try:
-                db.session.add(new_question)
-                db.session.commit()
-                return redirect('/')
-            except:
-                return "Your question could not be submitted. Sorry!"
-        
-        else:
-            return redirect('/login')
+        try:
+            current_user_id = User.current_user(session).id
+            new_question = Question(title=question_title, user_id=current_user_id)
+            db.session.add(new_question)
+            db.session.commit()
+            return redirect('/')
+        except:
+            return "Your question could not be submitted. Sorry!"
 
     else:
         questions = Question.query.order_by(Question.created_on).all()
@@ -84,7 +85,6 @@ def login():
         claimed_user = User.find_by_username(claimed_username)
         if bcrypt.check_password_hash(claimed_user.password, claimed_password):
             session['username'] = claimed_user.username
-            session['user_id'] = claimed_user.id
             return redirect('/')
         else:
             return "User authentication failed. Sorry!"

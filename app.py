@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
@@ -42,10 +42,20 @@ class Answer(db.Model):
         return '<Answer %r>' % self.content
 
 
-@app.route('/')
+@app.route('/', methods=['GET','POST'])
 def index():
-    questions = Question.query.order_by(Question.created_on).all()
-    return render_template('questions/index.html', questions = questions)
+    if request.method == 'POST'
+        question_title = request.form['title']
+        new_question = Question(title=question_title)
+        try:
+            db.session.add(new_question)
+            db.session.commit()
+            return redirect('/')
+        except:
+            return "Your question could not be submitted. Sorry!"
+    else
+        questions = Question.query.order_by(Question.created_on).all()
+        return render_template('questions/index.html', questions = questions)
 
 @app.route('/new')
 def new_question():

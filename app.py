@@ -140,6 +140,14 @@ def delete_question(question_id):
     else:
         return "Only the user who posted a question can delete it!"
 
+@app.route('/questions/<int:question_id>/answers/new')
+def new_answer(question_id):
+    question = Question.query.get(question_id)
+    if current_user == question.user:
+        return "You can't answer your own question!"
+    else:
+        return render_template('answers/new.html', question = question)
+
 
 if __name__ == "__main__":
     app.run(debug=True)

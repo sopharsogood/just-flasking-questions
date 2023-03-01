@@ -125,7 +125,8 @@ def logout():
 def question(question_id):
     question = Question.query.get(question_id)
     answers = question.answers
-    return render_template('questions/show.html', question = question, answers = answers)
+    current_user = User.current_user(session)
+    return render_template('questions/show.html', question = question, answers = answers, current_user = current_user)
 
 @app.route('/questions/<int:question_id>/delete')
 def delete_question(question_id):

@@ -46,7 +46,7 @@ class Answer(db.Model):
 
 @app.route('/', methods=['GET','POST'])
 def index():
-    if request.method == 'POST'
+    if request.method == "POST":
         question_title = request.form['title']
         new_question = Question(title=question_title)
         try:
@@ -56,7 +56,7 @@ def index():
         except:
             return "Your question could not be submitted. Sorry!"
 
-    else
+    else:
         questions = Question.query.order_by(Question.created_on).all()
         return render_template('questions/index.html', questions = questions)
 

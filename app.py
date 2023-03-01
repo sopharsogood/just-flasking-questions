@@ -1,9 +1,11 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
 from datetime import datetime
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///development.db'
+bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)
 
 class User(db.Model):
@@ -53,7 +55,7 @@ def index():
             return redirect('/')
         except:
             return "Your question could not be submitted. Sorry!"
-            
+
     else
         questions = Question.query.order_by(Question.created_on).all()
         return render_template('questions/index.html', questions = questions)

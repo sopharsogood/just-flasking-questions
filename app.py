@@ -12,6 +12,7 @@ class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String, unique = True)
+    password = db.Column(db.String(80))
     questions = db.relationship('Question', backref = 'user')
     answers = db.relationship('Answer', backref = 'user')
     created_on = db.Column(db.DateTime, server_default=db.func.now())
@@ -73,7 +74,7 @@ def login():
     if request.method =="POST":
         claimed_username = request.form['username']
         claimed_password = request.form['password']
-        claimed_user = User.query.filter_by(username=claimed_username).first
+        claimed_user = User.query.filter_by(username=claimed_username).first()
         if bcrypt.check_password_hash(claimed_user.password, claimed_password):
             session['username'] = claimed_user.username
             session['user_id'] = claimed_user.id

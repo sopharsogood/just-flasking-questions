@@ -85,11 +85,14 @@ def login():
         claimed_username = request.form['username']
         claimed_password = request.form['password']
         claimed_user = User.find_by_username(claimed_username)
-        if bcrypt.check_password_hash(claimed_user.password, claimed_password):
-            session['username'] = claimed_user.username
-            return redirect('/')
+        if not claimed_user:
+            return "Invalid username. Sorry!"
         else:
-            return "User authentication failed. Sorry!"
+            if bcrypt.check_password_hash(claimed_user.password, claimed_password):
+                session['username'] = claimed_user.username
+                return redirect('/')
+            else:
+                return "User authentication failed. Sorry!"
 
     else:
         return render_template('users/login.html')

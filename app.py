@@ -140,13 +140,27 @@ def delete_question(question_id):
     else:
         return "Only the user who posted a question can delete it!"
 
-@app.route('/questions/<int:question_id>/answers/new')
+@app.route('/questions/<int:question_id>/answers/new', methods=['GET','POST'])
 def new_answer(question_id):
     question = Question.query.get(question_id)
-    if current_user == question.user:
+    if not User.current_user(session):
+        return redirect('/login')
+    elif User.current_user(session) == question.user:
         return "You can't answer your own question!"
     else:
-        return render_template('answers/new.html', question = question)
+        if request.method == "POST":
+            answer_content = request.form['content']
+            try:
+                current_user_id = User.current_user(session).id
+                new_answer = Answer(content=answer_content, user_id=current_user_id, question_id=question_id)
+                db.session.add(new_answer)
+                db.session.commit()
+                return redirect('/questions/{question_id}')
+            except:
+                return "Your answer could not be submitted. Sorry!"
+
+        else: 
+            return render_template('answers/new.html', question = question)
 
 
 if __name__ == "__main__":

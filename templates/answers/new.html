@@ -6,8 +6,8 @@
 <h3>{{ question.title }}</h3>
 <p>{{ question.content }}</p>
 
-<form action="/" method="POST">
-    Your answer: <input type="text" name="title" id="title"> <br>
+<form action="/questions/{{ question.id }}/answers/new" method="POST">
+    Your answer: <input type="text" name="content" id="content"> <br>
     <input type="submit" value="Answer!">
 </form>
 {% endblock %}

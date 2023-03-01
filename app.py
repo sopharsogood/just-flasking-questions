@@ -48,13 +48,17 @@ class Answer(db.Model):
 def index():
     if request.method == "POST":
         question_title = request.form['title']
-        new_question = Question(title=question_title, user_id=session[user_id])
-        try:
-            db.session.add(new_question)
-            db.session.commit()
-            return redirect('/')
-        except:
-            return "Your question could not be submitted. Sorry!"
+        if 'username' in session:
+            new_question = Question(title=question_title, user_id=session['user_id'])
+            try:
+                db.session.add(new_question)
+                db.session.commit()
+                return redirect('/')
+            except:
+                return "Your question could not be submitted. Sorry!"
+        
+        else:
+            return redirect('/login')
 
     else:
         questions = Question.query.order_by(Question.created_on).all()

@@ -53,6 +53,7 @@ def index():
             return redirect('/')
         except:
             return "Your question could not be submitted. Sorry!"
+            
     else
         questions = Question.query.order_by(Question.created_on).all()
         return render_template('questions/index.html', questions = questions)

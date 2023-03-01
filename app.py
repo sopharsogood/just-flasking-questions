@@ -126,6 +126,18 @@ def questions(question_id):
     answers = question.answers
     return render_template('questions/show.html', question = question, answers = answers)
 
+@app.route('/questions/<int:question_id>/delete')
+def delete_question(question_id):
+    question = Question.query.get(question_id)
+    if User.current_user(session) == question.user:
+        for answer in question.answers:
+            db.session.delete(answer)
+        db.session.delete(question)
+        db.session.commit()
+        return redirect('/')
+    else:
+        return "Only the user who posted a question can delete it!"
+        
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -8,6 +8,8 @@
 
 {% if current_user == question.user %}
 <a href={{url_for('delete_question', question_id = question.id)}}>Delete</a>
+{% elif %}
+<p><a href={{url_for('new_answer', question_id=question.id)}}>Submit an answer</a></p>
 {% endif %}
 
 <table>
@@ -18,7 +20,11 @@
     </tr>
     {% for answer in answers %}
         <tr>
-            <td>{{ answer.user.username }}</td>
+            <td>{{ answer.user.username }}
+                {% if answer.user == current_user %}
+                <br><a href={{url_for('delete_answer', answer_id = answer.id)}}>Delete</a>
+                {% endif %}
+            </td>
             <td>{{ answer.content }}</td>
             <td>{{ answer.created_on }}</td>
         </tr>

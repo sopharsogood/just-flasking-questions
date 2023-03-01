@@ -162,6 +162,15 @@ def new_answer(question_id):
         else: 
             return render_template('answers/new.html', question = question)
 
+@app.route('/answers/<int:answer_id>/delete')
+def delete_answer(answer_id):
+    answer = Answer.query.get(answer_id)
+    if User.current_user(session) == answer.user:
+        db.session.delete(answer)
+        db.session.commit()
+        return redirect('/')
+    else:
+        return "Only the user who posted an answer can delete it!"
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -64,5 +64,13 @@ def index():
 def new_question():
     return render_template('questions/new.html')
 
+@app.route('/login')
+def login():
+    return render_template('users/login.html')
+
+@app.route('/register')
+def register():
+    return render_template('users/register.html')
+
 if __name__ == "__main__":
     app.run(debug=True)

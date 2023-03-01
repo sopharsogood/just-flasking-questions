@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% if username in session %}
-        Log In | Register
-    {% else %}
         Logged in as {{ session['username'] }} | Log Out
+    {% else %}
+        Log In | Register
     {% endif %}
     <br>
     {% block head %} {% endblock %}

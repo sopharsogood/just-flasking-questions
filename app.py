@@ -21,6 +21,10 @@ class User(db.Model):
     def __repr__(self) -> str:
         return '<User %r>' % self.username
 
+    @classmethod
+    def find_by_username(self, username):
+        return User.query.filter_by(username=username).first()
+
 class Question(db.Model):
     __tablename__ = 'questions'
     id = db.Column(db.Integer, primary_key = True)
@@ -67,14 +71,17 @@ def index():
 
 @app.route('/new')
 def new_question():
-    return render_template('questions/new.html')
+    if 'username' not in session:
+        return redirect('/login')
+    else:
+        return render_template('questions/new.html')
 
 @app.route('/login', methods=['GET','POST'])
 def login():
     if request.method =="POST":
         claimed_username = request.form['username']
         claimed_password = request.form['password']
-        claimed_user = User.query.filter_by(username=claimed_username).first()
+        claimed_user = User.find_by_username(claimed_username)
         if bcrypt.check_password_hash(claimed_user.password, claimed_password):
             session['username'] = claimed_user.username
             session['user_id'] = claimed_user.id

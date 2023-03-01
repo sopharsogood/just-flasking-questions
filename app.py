@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
-from flask_bcrypt import Bcrypt
+from flask_bcrypt import Bcrypt, check_password_hash, generate_password_hash
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///development.db'
@@ -66,7 +66,15 @@ def new_question():
 @app.route('/login', methods=['GET','POST'])
 def login():
     if request.method =="POST":
-
+        claimed_username = request.form['username']
+        claimed_password = request.form['password']
+        claimed_user = User.query.filter_by(username=claimed_username).first
+        if bcrypt.check_password_hash(claimed_user.password, claimed_password):
+            session['username'] = claimed_user.username
+            session['user_id'] = claimed_user.id
+            return redirect ('/')
+        else:
+            return "User authentication failed. Sorry!"
 
     else:
         return render_template('users/login.html')

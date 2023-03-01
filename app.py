@@ -116,9 +116,9 @@ def logout():
     return redirect('/')
 
 @app.route('/questions/<int:question_id>')
-def questions():
+def questions(question_id):
     question = Question.query.get(question_id)
-    return render_template('questions/show.html')
+    return render_template('questions/show.html', question = question)
 
 
 if __name__ == "__main__":

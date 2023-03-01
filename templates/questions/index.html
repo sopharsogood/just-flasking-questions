@@ -15,7 +15,7 @@
     </tr>
     {% for question in questions %}
         <tr>
-            <td>{{ question['title'] }}</td>
+            <td><a href={{url_for('questions', question_id = question.id)}}>{{ question['title'] }}</a></td>
             <td>{{ question.user.username }}</td>
             <td>{{ question.created_on }}</td>
         </tr>

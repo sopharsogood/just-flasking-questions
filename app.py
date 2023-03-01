@@ -78,7 +78,7 @@ def login():
         if bcrypt.check_password_hash(claimed_user.password, claimed_password):
             session['username'] = claimed_user.username
             session['user_id'] = claimed_user.id
-            return redirect ('/')
+            return redirect('/')
         else:
             return "User authentication failed. Sorry!"
 
@@ -103,6 +103,10 @@ def register():
     else:
         return render_template('users/register.html')
 
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    return redirect('/')
 
 
 if __name__ == "__main__":

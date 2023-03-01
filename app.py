@@ -35,6 +35,7 @@ class Question(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     title = db.Column(db.String)
     content = db.Column(db.String)
+    answers = db.relationship('Answer', backref = 'question')
     created_on = db.Column(db.DateTime, server_default=db.func.now())
     updated_on = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
 

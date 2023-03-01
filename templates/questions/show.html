@@ -4,7 +4,10 @@
 
 {% block body %}
 <h3>{{ question.title }}</h3>
-<div>{{ question.content }}</div>
+<p>{{ question.content }}</p>
+
+{% if User.current_user(session) == question.user %}
+<a href={{url_for('delete_question', question_id = question.id)}}>Delete</a>
 
 <table>
     <tr>

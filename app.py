@@ -47,5 +47,9 @@ def index():
     questions = Question.query.order_by(Question.created_on).all()
     return render_template('questions/index.html', questions = questions)
 
+@app.route('/new')
+def new_question():
+    return render_template('questions/new.html')
+
 if __name__ == "__main__":
     app.run(debug=True)

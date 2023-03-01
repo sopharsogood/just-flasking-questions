@@ -115,8 +115,8 @@ def logout():
     session.pop('username', None)
     return redirect('/')
 
-@app.route('/question/<int:question_id>')
-def question():
+@app.route('/questions/<int:question_id>')
+def questions():
     question = Question.query.get(question_id)
     return render_template('questions/show.html')
 

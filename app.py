@@ -155,7 +155,7 @@ def new_answer(question_id):
                 new_answer = Answer(content=answer_content, user_id=current_user_id, question_id=question_id)
                 db.session.add(new_answer)
                 db.session.commit()
-                return redirect('/questions/{question_id}')
+                return redirect(f'/questions/{question_id}')
             except:
                 return "Your answer could not be submitted. Sorry!"
 

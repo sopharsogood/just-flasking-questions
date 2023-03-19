@@ -178,5 +178,19 @@ def delete_answer(answer_id):
     else:
         return "Only the user who posted an answer can delete it!"
 
+@app.route('/questions/<int:question_id>/edit')
+def edit_question(question_id):
+    question = Question.query.get(question_id)
+    if User.current_user(session) == question.user:
+        if request.method == "POST":
+
+        else:
+            return render_template('questions/edit.html', question = question)
+    else:
+        return "Only the user who posted a question can delete it!"
+
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)

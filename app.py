@@ -208,7 +208,7 @@ def edit_answer(answer_id):
             try:
                 answer.content = answer_content
                 db.session.commit()
-                return redirect(f'/answers/{answer_id}')
+                return redirect(f'/questions/{question.id}')
             except:
                 return "Your edited answer could not be submitted. Sorry!"
         else:

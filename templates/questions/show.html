@@ -12,6 +12,7 @@
 <p><a href={{url_for('new_answer', question_id=question.id)}}>Submit an answer</a></p>
 {% endif %}
 
+{% if answers %}
 <table>
     <tr>
         <th>User</th>
@@ -30,4 +31,5 @@
         </tr>
     {% endfor %}
 </table>
+{% endif %}
 {% endblock %}

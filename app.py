@@ -1,9 +1,7 @@
 from flask import Flask, render_template, request, session, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt, check_password_hash, generate_password_hash
-from flask_wtf import FlaskForm
-from wtforms import (StringField, TextAreaField, IntegerField, BooleanField, RadioField)
-from wtforms.validators import InputRequired, Length
+from wtforms_alchemy import ModelForm
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///development.db'
@@ -56,6 +54,11 @@ class Answer(db.Model):
 
     def __repr__(self):
         return '<Answer %r>' % self.content
+    
+
+class UserForm(ModelForm):
+    class Meta:
+        model = User
 
 
 @app.route('/', methods=['GET','POST'])

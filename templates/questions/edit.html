@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+<title>Edit Your Question</title>
+{% endblock %}
+
+{% block body %}
+<form action="/" method="POST">
+    Title: <input type="text" name="title" id="title" value="{{ question.title }}"> <br>
+    Further text: <input type="text" name="content" id="content" value="{{ question.content }}"> <br>
+    <input type="submit" value="Submit Edit">
+</form>
+{% endblock %}

@@ -7,7 +7,7 @@
 <p>{{ question.content }}</p>
 
 {% if current_user == question.user %}
-<a href={{url_for('delete_question', question_id = question.id)}}>Delete</a>
+<a href={{url_for('edit_question', question_id = question.id)}}>Edit</a> | <a href={{url_for('delete_question', question_id = question.id)}}>Delete</a> 
 {% else %}
 <p><a href={{url_for('new_answer', question_id=question.id)}}>Submit an answer</a></p>
 {% endif %}
@@ -22,7 +22,7 @@
         <tr>
             <td>{{ answer.user.username }}
                 {% if answer.user == current_user %}
-                <br><a href={{url_for('delete_answer', answer_id = answer.id)}}>Delete</a>
+                <br><a href={{url_for('edit_answer', answer_id = answer.id)}}>Edit</a> | <a href={{url_for('delete_answer', answer_id = answer.id)}}>Delete</a>
                 {% endif %}
             </td>
             <td>{{ answer.content }}</td>

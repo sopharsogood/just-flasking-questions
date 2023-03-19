@@ -183,10 +183,15 @@ def edit_question(question_id):
     question = Question.query.get(question_id)
     if User.current_user(session) == question.user:
         if request.method == "POST":
-            question.title = question_title
-            question.content = question_content
-            db.session.commit()
-            return redirect(f'/questions/{question_id}')
+            question_title = request.form['title']
+            question_content = request.form['content']
+            try:
+                question.title = question_title
+                question.content = question_content
+                db.session.commit()
+                return redirect(f'/questions/{question_id}')
+            except:
+                return "Your edited question could not be submitted. Sorry!"
         else:
             return render_template('questions/edit.html', question = question)
     else:
@@ -199,9 +204,13 @@ def edit_answer(question_id):
     question = answer.question
     if User.current_user(session) == answer.user:
         if request.method == "POST":
-            answer.content = answer_content
-            db.session.commit()
-            return redirect(f'/answers/{answer_id}')
+            answer_content = request.form['content']
+            try:
+                answer.content = answer_content
+                db.session.commit()
+                return redirect(f'/answers/{answer_id}')
+            except:
+                return "Your edited answer could not be submitted. Sorry!"
         else:
             return render_template('answers/edit.html', question = question, answer = answer)
     else:

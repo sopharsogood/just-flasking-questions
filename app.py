@@ -178,7 +178,7 @@ def delete_answer(answer_id):
     else:
         return "Only the user who posted an answer can delete it!"
 
-@app.route('/questions/<int:question_id>/edit')
+@app.route('/questions/<int:question_id>/edit', methods=['GET','POST'])
 def edit_question(question_id):
     question = Question.query.get(question_id)
     if User.current_user(session) == question.user:
@@ -193,7 +193,7 @@ def edit_question(question_id):
         return "Only the user who posted a question can edit it!"
 
 
-@app.route('/answers/<int:answer_id>/edit')
+@app.route('/answers/<int:answer_id>/edit', methods=['GET','POST'])
 def edit_answer(question_id):
     answer = Answer.query.get(answer_id)
     question = answer.question

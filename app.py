@@ -183,7 +183,10 @@ def edit_question(question_id):
     question = Question.query.get(question_id)
     if User.current_user(session) == question.user:
         if request.method == "POST":
-
+            question.title = question_title
+            question.content = question_content
+            db.session.commit()
+            return redirect(f'/questions/{question_id}')
         else:
             return render_template('questions/edit.html', question = question)
     else:

@@ -190,7 +190,7 @@ def edit_question(question_id):
         else:
             return render_template('questions/edit.html', question = question)
     else:
-        return "Only the user who posted a question can delete it!"
+        return "Only the user who posted a question can edit it!"
 
 
 @app.route('/answers/<int:answer_id>/edit')

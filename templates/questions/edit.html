@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-<form action="/" method="POST">
+<form action={{url_for('edit_question', question_id = question.id)}} method="POST">
     Title: <input type="text" name="title" id="title" value="{{ question.title }}"> <br>
     Further text: <input type="text" name="content" id="content" value="{{ question.content }}"> <br>
     <input type="submit" value="Submit Edit">

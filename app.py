@@ -199,7 +199,7 @@ def edit_question(question_id):
 
 
 @app.route('/answers/<int:answer_id>/edit', methods=['GET','POST'])
-def edit_answer(question_id):
+def edit_answer(answer_id):
     answer = Answer.query.get(answer_id)
     question = answer.question
     if User.current_user(session) == answer.user:

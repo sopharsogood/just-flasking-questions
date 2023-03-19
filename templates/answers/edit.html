@@ -9,8 +9,7 @@
 <p>{{ question.content }}</p>
 
 <form action="/" method="POST">
-    Title: <input type="text" name="title" id="title" value="{{ answer.title }}"> <br>
-    Further text: <input type="text" name="content" id="content" value="{{ answer.content }}"> <br>
+    Answer: <input type="text" name="content" id="content" value="{{ answer.content }}"> <br>
     <input type="submit" value="Submit Edit">
 </form>
 {% endblock %}
